@@ -153,7 +153,7 @@ function JobsContent() {
       </div>
 
       {/* Jobs List */}
-      <div className="space-y-8">
+      <div className="space-y-12">
         {jobs.length === 0 ? (
           <div className="floating-card text-center py-20">
             <Briefcase className="h-24 w-24 text-slate-300 mx-auto mb-8" />
@@ -173,8 +173,9 @@ function JobsContent() {
           jobs.map((job) => {
             const company = job.companies
             return (
-              <Link key={job.id} href={`/jobs/${job.id}`}>
-                <div className="job-card p-8 cursor-pointer group">
+              <div key={job.id} className="mb-8">
+                <Link href={`/jobs/${job.id}`}>
+                  <div className="job-card p-8 cursor-pointer group">
                   <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
                     <div className="flex-1">
                       <div className="flex items-start gap-6">
@@ -263,8 +264,9 @@ function JobsContent() {
                       </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                  </div>
+                </Link>
+              </div>
             )
           })
         )}
