@@ -1,103 +1,153 @@
-import Image from "next/image";
+'use client'
+
+import Link from 'next/link'
+import { ArrowRight, Briefcase, Users, Search, Sparkles, Zap, Target } from 'lucide-react'
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="relative">
+      {/* Hero Section */}
+      <div className="container mx-auto px-4 py-24">
+        <div className="text-center mb-20">
+          <div className="relative">
+            <h1 className="text-6xl md:text-8xl font-bold text-slate-900 mb-8 leading-tight">
+              Find Your Next
+              <br />
+              <span className="text-gradient-animated">Dream Career</span>
+            </h1>
+            {/* Floating orbs - optimized */}
+            <div className="absolute -top-8 -left-8 w-24 h-24 bg-gradient-primary rounded-full blur-xl opacity-10"></div>
+            <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-gradient-accent rounded-full blur-xl opacity-10"></div>
+          </div>
+          
+          <p className="text-xl text-slate-700 mb-12 max-w-3xl mx-auto leading-relaxed">
+            Connect with innovative companies and discover opportunities that match your skills and aspirations.
+            Start your career journey in the modern digital landscape.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <Link
+              href="/jobs"
+              className="btn-3d text-white px-12 py-5 text-lg font-semibold flex items-center justify-center space-x-3 min-w-[220px] group"
+            >
+              <Search className="h-6 w-6 group-hover:scale-110 transition-transform" />
+              <span>Browse Jobs</span>
+              <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            <Link
+              href="/auth/signup"
+              className="btn-secondary text-white px-12 py-5 text-lg font-semibold flex items-center justify-center space-x-3 min-w-[220px] group"
+            >
+              <Users className="h-6 w-6 group-hover:scale-110 transition-transform" />
+              <span>Post a Job</span>
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Features Section */}
+        <div className="grid md:grid-cols-3 gap-8 mt-32">
+          <div className="floating-card p-10 text-center group">
+            <div className="relative mb-8">
+              <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-primary flex items-center justify-center shadow-xl group-hover:scale-105 transition-transform duration-300">
+                <Briefcase className="h-12 w-12 text-white" />
+              </div>
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-accent rounded-full opacity-40 animate-gentle-pulse"></div>
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">Easy Job Posting</h3>
+            <p className="text-slate-600 leading-relaxed text-lg">
+              Post your job openings quickly with our intuitive interface and reach qualified candidates in minutes.
+            </p>
+          </div>
+
+          <div className="floating-card p-10 text-center group">
+            <div className="relative mb-8">
+              <div className="w-24 h-24 mx-auto rounded-3xl bg-gradient-accent flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-500">
+                <Zap className="h-12 w-12 text-white" />
+              </div>
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-secondary rounded-full opacity-40 animate-gentle-pulse"></div>
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">Smart Matching</h3>
+            <p className="text-slate-600 leading-relaxed text-lg">
+              Find exactly what you&apos;re looking for with our AI-powered matching algorithms and intelligent filtering.
+            </p>
+          </div>
+
+          <div className="floating-card p-10 text-center group">
+            <div className="relative mb-8">
+              <div className="w-24 h-24 mx-auto rounded-3xl bg-gradient-secondary flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-500">
+                <Target className="h-12 w-12 text-white" />
+              </div>
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-primary rounded-full opacity-40 animate-gentle-pulse"></div>
+            </div>
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">Quality Connections</h3>
+            <p className="text-slate-600 leading-relaxed text-lg">
+              Connect with the right opportunities and candidates through our curated professional network.
+            </p>
+          </div>
+        </div>
+
+        {/* Stats Section */}
+        <div className="mt-32">
+          <div className="floating-card p-12">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">
+                Trusted by <span className="text-gradient">Thousands</span>
+              </h2>
+              <p className="text-slate-600 text-lg">Join the growing community of professionals and companies</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+              <div className="group">
+                <div className="text-4xl font-bold text-gradient mb-3 group-hover:scale-110 transition-transform">1000+</div>
+                <div className="text-slate-600 font-medium">Active Jobs</div>
+              </div>
+              <div className="group">
+                <div className="text-4xl font-bold text-gradient-accent mb-3 group-hover:scale-110 transition-transform">500+</div>
+                <div className="text-slate-600 font-medium">Companies</div>
+              </div>
+              <div className="group">
+                <div className="text-4xl font-bold text-gradient-secondary mb-3 group-hover:scale-110 transition-transform">10k+</div>
+                <div className="text-slate-600 font-medium">Job Seekers</div>
+              </div>
+              <div className="group">
+                <div className="text-4xl font-bold text-gradient-success mb-3 group-hover:scale-110 transition-transform">95%</div>
+                <div className="text-slate-600 font-medium">Success Rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-32">
+          <div className="floating-card p-16 text-center">
+            <div className="relative">
+              <Sparkles className="h-16 w-16 text-gradient mx-auto mb-8" />
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+                Ready to Start Your <span className="text-gradient">Journey?</span>
+              </h2>
+              <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
+                Whether you&apos;re looking for your next career move or searching for top talent, 
+                Clareer is here to make meaningful connections happen.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  href="/jobs"
+                  className="btn-3d text-white px-10 py-4 text-lg font-semibold flex items-center justify-center space-x-3"
+                >
+                  <Search className="h-5 w-5" />
+                  <span>Explore Opportunities</span>
+                </Link>
+                <Link
+                  href="/auth/signup"
+                  className="btn-glass px-10 py-4 text-lg font-semibold flex items-center justify-center space-x-3"
+                >
+                  <Users className="h-5 w-5" />
+                  <span>Join as Employer</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
