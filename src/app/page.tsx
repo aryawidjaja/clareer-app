@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Briefcase, Users, Search, Sparkles, Zap, Target } from 'lucide-react'
+import { ArrowRight, Briefcase, Users, Search, Zap, Target } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -51,7 +51,6 @@ export default function Home() {
               <div className="w-20 h-20 mx-auto rounded-2xl bg-gradient-primary flex items-center justify-center shadow-xl group-hover:scale-105 transition-transform duration-300">
                 <Briefcase className="h-12 w-12 text-white" />
               </div>
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-accent rounded-full opacity-40 animate-gentle-pulse"></div>
             </div>
             <h3 className="text-2xl font-bold text-slate-900 mb-4">Easy Job Posting</h3>
             <p className="text-slate-600 leading-relaxed text-lg">
@@ -64,7 +63,6 @@ export default function Home() {
               <div className="w-24 h-24 mx-auto rounded-3xl bg-gradient-accent flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-500">
                 <Zap className="h-12 w-12 text-white" />
               </div>
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-secondary rounded-full opacity-40 animate-gentle-pulse"></div>
             </div>
             <h3 className="text-2xl font-bold text-slate-900 mb-4">Smart Matching</h3>
             <p className="text-slate-600 leading-relaxed text-lg">
@@ -77,7 +75,6 @@ export default function Home() {
               <div className="w-24 h-24 mx-auto rounded-3xl bg-gradient-secondary flex items-center justify-center shadow-2xl group-hover:scale-110 transition-all duration-500">
                 <Target className="h-12 w-12 text-white" />
               </div>
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-primary rounded-full opacity-40 animate-gentle-pulse"></div>
             </div>
             <h3 className="text-2xl font-bold text-slate-900 mb-4">Quality Connections</h3>
             <p className="text-slate-600 leading-relaxed text-lg">
