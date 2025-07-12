@@ -115,38 +115,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        {/* CTA Section */}
-        <div className="mt-32">
-          <div className="floating-card p-16 text-center">
-            <div className="relative">
-              <Sparkles className="h-16 w-16 text-gradient mx-auto mb-8" />
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-                Ready to Start Your <span className="text-gradient">Journey?</span>
-              </h2>
-              <p className="text-xl text-slate-600 mb-10 max-w-2xl mx-auto">
-                Whether you&apos;re looking for your next career move or searching for top talent, 
-                Clareer is here to make meaningful connections happen.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/jobs"
-                  className="btn-3d text-white px-10 py-4 text-lg font-semibold flex items-center justify-center space-x-3"
-                >
-                  <Search className="h-5 w-5" />
-                  <span>Explore Opportunities</span>
-                </Link>
-                <Link
-                  href="/auth/signup"
-                  className="btn-glass px-10 py-4 text-lg font-semibold flex items-center justify-center space-x-3"
-                >
-                  <Users className="h-5 w-5" />
-                  <span>Join as Employer</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   )
