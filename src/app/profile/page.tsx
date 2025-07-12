@@ -1,13 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+export const dynamic = 'force-dynamic'
+
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
 import { UserProfile } from '@/types/database'
 import { User, Mail, MapPin, Globe, Linkedin, Github, Briefcase, Tag, Plus, Save, AlertCircle } from 'lucide-react'
 
-export default function ProfilePage() {
-  const [user, setUser] = useState<any>(null)
+function ProfileContent() {
+  const [user, setUser] = useState<{ id: string; email: string } | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -45,7 +47,7 @@ export default function ProfilePage() {
         router.push('/auth/login')
         return
       }
-      setUser(session.user)
+      setUser({ id: session.user.id, email: session.user.email || '' })
       await loadProfile(session.user.id)
       setLoading(false)
     }
@@ -159,8 +161,8 @@ export default function ProfilePage() {
           router.push(redirectParam)
         }, 1500)
       }
-    } catch (error: any) {
-      setError(error.message)
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
       setSaving(false)
     }
@@ -201,7 +203,7 @@ export default function ProfilePage() {
                   You need employer access to post jobs.
                 </p>
                 <p className="text-blue-700 text-sm">
-                  Please check the "I'm a hiring manager or recruiter" option below and save your profile.
+                  Please check the &quot;I&apos;m a hiring manager or recruiter&quot; option below and save your profile.
                 </p>
               </div>
             </div>
@@ -466,7 +468,7 @@ export default function ProfilePage() {
                   onChange={handleInputChange}
                 />
                 <label htmlFor="is_job_seeker" className="ml-3 text-sm font-medium text-slate-700">
-                  I'm looking for job opportunities
+                  I&apos;m looking for job opportunities
                 </label>
               </div>
               
@@ -480,7 +482,7 @@ export default function ProfilePage() {
                   onChange={handleInputChange}
                 />
                 <label htmlFor="is_employer" className="ml-3 text-sm font-medium text-slate-700">
-                  I'm a hiring manager or recruiter
+                  I&apos;m a hiring manager or recruiter
                 </label>
               </div>
             </div>
@@ -500,5 +502,22 @@ export default function ProfilePage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function ProfilePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="floating-card p-12">
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-transparent border-t-blue-600 mx-auto mb-6"></div>
+            <p className="text-slate-600 text-lg">Loading your profile...</p>
+          </div>
+        </div>
+      </div>
+    }>
+      <ProfileContent />
+    </Suspense>
   )
 }

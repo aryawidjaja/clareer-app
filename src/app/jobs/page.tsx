@@ -1,23 +1,23 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+export const dynamic = 'force-dynamic'
+
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useJobs } from '@/hooks/useJobs'
 import { Search, MapPin, Building, Clock, Calendar, ArrowRight, Filter, Briefcase } from 'lucide-react'
 
-export default function JobsPage() {
+function JobsContent() {
   const [searchTerm, setSearchTerm] = useState('')
   const [locationFilter, setLocationFilter] = useState('')
   const [jobTypeFilter, setJobTypeFilter] = useState('')
-  const [companyFilter, setCompanyFilter] = useState('')
   
   const searchParams = useSearchParams()
   
   useEffect(() => {
     const company = searchParams.get('company')
     if (company) {
-      setCompanyFilter(company)
       setSearchTerm(company)
     }
   }, [searchParams])
@@ -282,5 +282,22 @@ export default function JobsPage() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function JobsPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="floating-card p-12">
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-transparent border-t-blue-600 mx-auto mb-6"></div>
+            <p className="text-slate-600 text-lg">Loading amazing opportunities...</p>
+          </div>
+        </div>
+      </div>
+    }>
+      <JobsContent />
+    </Suspense>
   )
 }

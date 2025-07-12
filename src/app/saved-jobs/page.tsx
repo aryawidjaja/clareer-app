@@ -7,9 +7,11 @@ import { createClient } from '@/lib/supabase'
 import { JobWithCompany } from '@/types/database'
 import { Heart, Building, MapPin, Calendar, ArrowRight, Trash2, ExternalLink } from 'lucide-react'
 
+type SavedJobWithDate = JobWithCompany & { saved_at: string }
+
 export default function SavedJobsPage() {
-  const [user, setUser] = useState<any>(null)
-  const [savedJobs, setSavedJobs] = useState<JobWithCompany[]>([])
+  const [user, setUser] = useState<{ id: string; email: string } | null>(null)
+  const [savedJobs, setSavedJobs] = useState<SavedJobWithDate[]>([])
   const [loading, setLoading] = useState(true)
   const router = useRouter()
   const supabase = createClient()
@@ -21,7 +23,7 @@ export default function SavedJobsPage() {
         router.push('/auth/login')
         return
       }
-      setUser(session.user)
+      setUser({ id: session.user.id, email: session.user.email || '' })
       await loadSavedJobs(session.user.id)
       setLoading(false)
     }
@@ -49,10 +51,15 @@ export default function SavedJobsPage() {
 
       if (error) throw error
 
-      const jobsData = data?.map(item => ({
-        ...item.jobs,
-        saved_at: item.saved_at
-      })).filter(job => job && job.id) as JobWithCompany[]
+      const jobsData = data?.reduce<SavedJobWithDate[]>((acc, item) => {
+        if (item.jobs && typeof item.jobs === 'object' && 'id' in item.jobs && item.jobs.id) {
+          acc.push({
+            ...item.jobs,
+            saved_at: item.saved_at
+          } as unknown as SavedJobWithDate)
+        }
+        return acc
+      }, []) || []
 
       setSavedJobs(jobsData)
     } catch (error) {
@@ -116,7 +123,7 @@ export default function SavedJobsPage() {
           <Heart className="h-24 w-24 text-slate-300 mx-auto mb-8" />
           <h3 className="text-3xl font-bold text-slate-900 mb-4">No saved jobs yet</h3>
           <p className="text-slate-600 text-lg mb-8">
-            Start browsing jobs and save the ones you're interested in for easy access later.
+            Start browsing jobs and save the ones you&apos;re interested in for easy access later.
           </p>
           <Link
             href="/jobs"

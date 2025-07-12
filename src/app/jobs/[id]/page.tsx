@@ -10,7 +10,6 @@ import {
   MapPin, 
   Building, 
   Calendar, 
-  Clock, 
   DollarSign, 
   Users, 
   Heart,
@@ -25,7 +24,7 @@ import {
 import { useState } from 'react'
 
 export default function JobDetailPage() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<{ id: string; email: string } | null>(null)
   const [showApplicationForm, setShowApplicationForm] = useState(false)
   const [applicationData, setApplicationData] = useState({
     cover_letter: '',
@@ -49,7 +48,7 @@ export default function JobDetailPage() {
   useEffect(() => {
     const getUser = async () => {
       const { data: { session } } = await supabase.auth.getSession()
-      setUser(session?.user || null)
+      setUser(session?.user ? { id: session.user.id, email: session.user.email || '' } : null)
     }
     getUser()
   }, [supabase])
@@ -139,8 +138,9 @@ export default function JobDetailPage() {
       setShowApplicationForm(false)
       setApplicationData({ cover_letter: '', resume_url: '' })
       window.location.reload() // Refresh to show updated application status
-    } catch (error: any) {
-      alert(`Error submitting application: ${error.message}`)
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'An error occurred'
+      alert(`Error submitting application: ${message}`)
     } finally {
       setSubmittingApplication(false)
     }
@@ -166,7 +166,7 @@ export default function JobDetailPage() {
           <div className="floating-card p-12">
             <Briefcase className="h-16 w-16 text-slate-300 mx-auto mb-6" />
             <h1 className="text-2xl font-bold text-slate-900 mb-4">Job Not Found</h1>
-            <p className="text-slate-600 mb-8">{error || "The job you're looking for doesn't exist or has been removed."}</p>
+            <p className="text-slate-600 mb-8">{error || "The job you&apos;re looking for doesn&apos;t exist or has been removed."}</p>
             <Link
               href="/jobs"
               className="btn-3d text-white px-8 py-3 text-lg font-semibold inline-flex items-center space-x-2"
@@ -370,7 +370,7 @@ export default function JobDetailPage() {
           <div className="floating-card p-8 text-center">
             <h3 className="text-2xl font-bold text-slate-900 mb-4">Ready to Apply?</h3>
             <p className="text-slate-600 text-lg mb-6">
-              Don't miss out on this amazing opportunity. Apply now and take the next step in your career!
+              Don&apos;t miss out on this amazing opportunity. Apply now and take the next step in your career!
             </p>
             {hasApplied ? (
               <div className="flex items-center justify-center gap-3 text-green-600">

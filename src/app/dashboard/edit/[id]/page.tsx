@@ -77,8 +77,8 @@ export default function EditJobPage() {
           job_type: data.job_type
         })
       }
-    } catch (error: any) {
-      setError(error.message)
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
       setLoading(false)
     }
@@ -116,8 +116,8 @@ export default function EditJobPage() {
       setTimeout(() => {
         router.push('/dashboard')
       }, 2000)
-    } catch (error: any) {
-      setError(error.message)
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
       setSubmitting(false)
     }

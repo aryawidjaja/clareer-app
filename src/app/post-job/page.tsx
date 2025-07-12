@@ -148,8 +148,8 @@ export default function PostJobPage() {
       setFormData(prev => ({ ...prev, company_id: data.id, company: data.name }))
       setNewCompany({ name: '', description: '', website: '', logo_url: '', size_range: '', industry: '', headquarters: '' })
       setShowNewCompanyForm(false)
-    } catch (error: any) {
-      setError(error.message)
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'An error occurred')
     }
   }
 
@@ -188,8 +188,8 @@ export default function PostJobPage() {
       if (error) throw error
 
       router.push('/dashboard')
-    } catch (error: any) {
-      setError(error.message)
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
       setSubmitting(false)
     }
@@ -383,7 +383,7 @@ export default function PostJobPage() {
                           <select
                             className="glass-input px-4 py-3 rounded-lg"
                             value={newCompany.size_range}
-                            onChange={(e) => setNewCompany(prev => ({ ...prev, size_range: e.target.value as any }))}
+                            onChange={(e) => setNewCompany(prev => ({ ...prev, size_range: e.target.value as '' | '1-10' | '11-50' | '51-200' | '201-1000' | '1000+' }))}
                           >
                             <option value="">Company Size</option>
                             <option value="1-10">1-10 employees</option>

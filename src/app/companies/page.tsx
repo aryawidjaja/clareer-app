@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase'
 import { useUserRole } from '@/hooks/useUserRole'
@@ -26,18 +25,17 @@ function useDebounce<T>(value: T, delay: number): T {
 }
 
 export default function CompaniesPage() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<{ id: string; email: string } | null>(null)
   const [companies, setCompanies] = useState<Company[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
-  const router = useRouter()
   const supabase = createClient()
   const { isEmployer, loading: roleLoading } = useUserRole(user?.id)
 
   useEffect(() => {
     const getUser = async () => {
       const { data: { session } } = await supabase.auth.getSession()
-      setUser(session?.user || null)
+      setUser(session?.user ? { id: session.user.id, email: session.user.email || '' } : null)
       await loadCompanies()
       setLoading(false)
     }
